@@ -29,7 +29,7 @@ class Sign extends CI_Controller {
 		$upwd=$this->input->post("upwd");
 		$this->db->where('uid',$uid);
 		$this->db->where('upwd',md5($upwd));
-		$this->db->where('isactive','Y');
+		//$this->db->where('isactive','Y');
 		$retval=$this->db->get("users")->result_array();
 		if(count($retval)>0){
 			$loggedin=true;
@@ -65,7 +65,7 @@ class Sign extends CI_Controller {
 				$rowid=$usr['rowid'];
 				$now=date('Y-m-d H:i:s');
 				$uid=$usr["uid"];
-				$sql="update t_users set upwd='$npwd',lastupd='$now',updby='$uid' where rowid=$rowid and upwd='$opwd'";
+				$sql="update users set upwd='$npwd',lastupd='$now',updby='$uid' where rowid=$rowid and upwd='$opwd'";
 				$ok=$this->db->query($sql);
 				if($ok){
 					if($this->db->affected_rows()>0){

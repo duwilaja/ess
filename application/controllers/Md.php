@@ -16,12 +16,24 @@ class Md extends CI_Controller {
 		}
 	}
 	
+	private function sqltbl($m){
+		$sql="";$c="";$t="";$cc="";
+		switch($m){
+			case "users": $sql="select uid,uname,umail,uaccess,ugrp,rowid from users";
+							$c="uid,uname,ugrp,umail,uaccess";
+							$t="users";
+							break;
+		}
+		return array($sql,$c,$t,$cc);
+	}
+	
 	public function datatable()
 	{
 		$usr=$this->session->userdata('user_data');
 		$data=array();
 		if(isset($usr)){
-			$sql=base64_decode($this->input->post("s"));
+			$sqltbl=$this->sqltbl($this->input->post("m"));
+			$sql=$sqltbl[0];
 			$res=$this->db->query($sql)->result_array();
 			//$this->load->model("myodbc");
 			//$res=$this->myodbc->query($sql)->result_array();
@@ -41,9 +53,10 @@ class Md extends CI_Controller {
 		$usr=$this->session->userdata('user_data');
 		$data=array();$cod='500';
 		if(isset($usr)){
-			$c=base64_decode($this->input->post("c"));
+			$sqltbl=$this->sqltbl($this->input->post("t"));
+			$c=$sqltbl[3]; $t=$sqltbl[2];
 			$c=$c==''?'*':$c;
-			$sql="select $c from ".base64_decode($this->input->post("t"))." where rowid=".$this->input->post("id");
+			$sql="select $c from $t where rowid=".$this->input->post("id");
 			$data=$this->db->query($sql)->result_array();
 			$cod='200';
 		}
@@ -94,8 +107,9 @@ class Md extends CI_Controller {
 		$data=array();$msgs='Failed'; $typ="error";
 		if(isset($usr)){
 			$this->load->model("mydb");
-			$c=base64_decode($this->input->post("cols"));
-			$t=base64_decode($this->input->post("table"));
+			$sqltbl=$this->sqltbl($this->input->post("menu"));
+			$c=$sqltbl[1];
+			$t=$sqltbl[2];
 			$rowid=$this->input->post("rowid");
 			$flag=$this->input->post("flag");
 			$where="rowid=$rowid";
