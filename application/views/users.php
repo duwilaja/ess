@@ -9,13 +9,11 @@ $data["pmenu"]="";
 $data["session"]=$session;
 $data["bu"]=$bu;
 
-$sql="select uid,uname,umail,uaccess,ugrp,rowid from t_users";
-$c="uid,uname,ugrp,umail,uaccess";
-$t="t_users";
-
 $this->load->view("_head",$data);
 $this->load->view("_navbar",$data);
 $this->load->view("_sidebar",$data);
+
+$menu=$data['menu'];
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -89,8 +87,7 @@ $this->load->view("_sidebar",$data);
 		  <form id="myf" class="form-horizontal">
 		  <input type="hidden" name="rowid" id="rowid" value="0">
 		  <input type="hidden" name="flag" id="flag" value="SAVE">
-		  <input type="hidden" name="table" value="<?php echo base64_encode($t)?>">
-		  <input type="hidden" name="cols" value="<?php echo base64_encode($c)?>">
+		  <input type="hidden" name="menu" value="<?php echo ($menu)?>">
 		  
 			<div class="card-body">
 			  <div class="form-group row">
@@ -172,7 +169,7 @@ $(document).ready(function(){
 			type: 'POST',
 			url: bu+'md/datatable',
 			data: function (d) {
-				d.s= '<?php echo base64_encode($sql); ?>';
+				d.m= '<?php echo ($menu); ?>';
 			}
 		},
 		initComplete: function(){
@@ -212,7 +209,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	getCombo("md/gets",'<?php echo base64_encode($ct)?>','<?php echo base64_encode($cc)?>','<?php echo base64_encode($cw)?>','#ugrp');
+	//getCombo("md/gets",'<?php echo base64_encode($ct)?>','<?php echo base64_encode($cc)?>','<?php echo base64_encode($cw)?>','#ugrp');
 });
 
 function reloadTable(frm){
@@ -221,7 +218,7 @@ function reloadTable(frm){
 
 function openf(id=0){
 	$("#rowid").val(id);
-	openForm('#myf','#modal-frm','md/get','#ovl',id,'<?php echo base64_encode($t)?>','<?php echo base64_encode($c)?>')
+	openForm('#myf','#modal-frm','md/get','#ovl',id,'<?php echo ($menu)?>')
 }
 function savef(del=false){
 	$("#flag").val('SAVE');

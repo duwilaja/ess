@@ -159,30 +159,30 @@ $bux=base_url();
               <li class="nav-item">
                 <a href="<?php echo $bux?>mo" class="nav-link mo">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Pricipal Permit</p>
+                  <p>Attendance</p>
                 </a>
               </li>
 			  <li class="nav-item">
                 <a href="<?php echo $bux?>iv" class="nav-link iv">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Purchasing</p>
+                  <p>Leave</p>
                 </a>
               </li>
 			  <li class="nav-item">
                 <a href="<?php echo $bux?>ss" class="nav-link ss">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Budget Authorization</p>
+                  <p>Overtime</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="<?php echo $bux?>bp" class="nav-link bp">
                   <i class="fas fa-angle-right nav-icon"></i>
-                  <p>Payment</p>
+                  <p>Reimburse</p>
                 </a>
               </li>
             </ul>
           </li>
-		<?php if($session["uaccess"]=='ADM'){?>
+		<?php if($session["uaccess"]=='ADM' && false){?>
 		  <li class="nav-item setting">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
